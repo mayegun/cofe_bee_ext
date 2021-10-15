@@ -1,0 +1,91 @@
+<?php
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Url;
+
+/**
+ * @file
+ * Primary module hooks for Cofe Ext BEE module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+
+/**
+ * Implement hook_webform_element_ELEMENT_TYPE_alter.
+ *
+ * @param array $element
+ * @param \Drupal\Core\Form\FormStateInterface $form_state
+ * @param array $context
+ */
+function cofe_ext_bee_webform_element_webform_wizard_page_alter (array &$element, \Drupal\Core\Form\FormStateInterface $form_state, array $context) {
+  $element['#pre_render'][count($element['#pre_render'])] = ['Drupal\cofe_ext_bee\Component\CalendarRenderer','preRenderCalendar'];
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function cofe_ext_bee_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if (isset($form['elements']) && is_array($form['elements'])) {
+    if (array_key_exists('reservation_calendar', $form['elements'])) {
+      $form['#validate'][0] = 'Drupal\cofe_ext_bee\Component\AlterForm::validateForm';
+      $form['#submit'][0] = 'Drupal\cofe_ext_bee\Component\AlterForm::submitForm';
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_operation().
+ */
+function cofe_ext_bee_entity_operation_alter(array &$operations, EntityInterface $entity) {
+  $entity_type_id = $entity->getEntityTypeId();
+  if ($entity_type_id !== 'cofe_ext_bee') {
+    return;
+  }
+
+  $status = $entity->getStatus(); 
+  
+  $entity_id = $entity->id();
+
+  if ($entity_type_id === 'cofe_ext_bee') {
+    // add custom operation
+    $approve_url = Url::fromRoute('entity.cofe_ext_bee.approve_form', ['cofe_ext_bee' => $entity_id]);
+    $reject_url = Url::fromRoute('entity.cofe_ext_bee.reject_form', ['cofe_ext_bee' => $entity_id]);
+
+    if ($status == 'pending') {
+      $operations['approve'] = [
+        'title' => t('Approve'),
+        'url' => $approve_url,
+        'weight' => 10
+      ];
+
+      $operations['reject'] = [
+        'title' => t('Reject'),
+        'url' => $reject_url,
+        'weight' => 20
+      ];
+    }
+
+    if (array_key_exists('edit', $operations)) {
+      unset($operations['edit']);
+    }
+  }
+}
+
+/**
+* Implements hook_mail().
+*/
+function cofe_ext_bee_mail($key, &$message, $params) {
+ $options = [
+   'langcode' => $message['langcode'],
+ ];
+
+ switch ($key) {
+   case 'approve_event':
+     $message['from'] = \Drupal::config('system.site')->get('mail');
+     $message['subject'] = t('Approved Event');
+     $message['body'][] = $params['message'];
+     break;
+ }
+}

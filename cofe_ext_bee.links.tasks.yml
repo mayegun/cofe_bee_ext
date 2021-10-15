@@ -1,0 +1,12 @@
+entity.cofe_ext_bee.canonical:
+route_name: entity.cofe_ext_bee.canonical
+base_route: entity.cofe_ext_bee.canonical
+title: View
+
+entity.cofe_ext_bee.edit_form:
+route_name: entity.cofe_ext_bee.edit_form
+title: Edit
+
+entity.cofe_ext_bee.approve_form:
+route_name: entity.cofe_ext_bee.approve_form
+title: Approve

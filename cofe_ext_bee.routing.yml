@@ -1,0 +1,82 @@
+cofe_ext_bee.addReservation:
+  path: '/cofe-ext-bee/add-reservation/{nid}/{start_date}/{end_date}/{user_info}'
+  defaults:
+    _title: 'Add Reservation'
+    _controller: '\Drupal\cofe_ext_bee\Controller\CofeExtBeeController::addReservation'
+  method: [GET]
+  requirements:
+    _permission: 'access content'
+
+cofe_ext_bee.intersect:
+  path: '/cofe-ext-bee/check-availability/{nid}/{start_date}/{end_date}'
+  defaults:
+    _title: 'Check Availabilty'
+    _controller: '\Drupal\cofe_ext_bee\Controller\CofeExtBeeController::checkAvailability'
+  method: [GET]
+  requirements:
+    _permission: 'access content'
+
+cofe_ext_bee.calendarReservationForm:
+  path: '/cofe-ext-bee/calendar-reservation-form/{nid}/{start_date}/{user_info}'
+  defaults:
+    _controller: '\Drupal\cofe_ext_bee\Controller\CofeExtBeeController::calendarReservationForm'
+    _title: 'Calendar Reservation Form'
+  requirements:
+    _permission: 'access content'
+
+cofe_ext_bee.settings_form:
+  path: '/admin/config/system/cofe-ext-bee'
+  defaults:
+    _title: 'Cofe Ext BEE settings'
+    _form: 'Drupal\cofe_ext_bee\Form\SettingsForm'
+  requirements:
+    _permission: 'administer cofe_ext_bee configuration'
+
+entity.cofe_ext_bee.canonical:
+  path: '/admin/cofe_ext_bee/events/event'
+  defaults:
+    _entity_list: 'cofe_ext_bee'
+    _title: 'CoFE Event list'
+  requirements:
+    _permission: 'administer cofe_ext_bee configuration'
+  options:
+    _admin_route: TRUE
+
+entity.cofe_ext_bee.edit_form:
+  path: '/admin/cofe_ext_bee/events/event/{cofe_ext_bee}/edit'
+  defaults:
+    _entity_form: 'cofe_ext_bee.edit'
+    _title: 'Event Edit'
+  requirements:
+    _permission: 'administer cofe_ext_bee configuration'
+  options:
+    _admin_route: TRUE
+
+entity.cofe_ext_bee.approve_form:
+  path: '/admin/cofe_ext_bee/events/event/{cofe_ext_bee}/approve'
+  defaults:
+    _entity_form: 'cofe_ext_bee.approve'
+    _title: 'Approve Event'
+  requirements:
+    _permission: 'administer cofe_ext_bee configuration'
+  options:
+    _admin_route: TRUE
+
+entity.cofe_ext_bee.reject_form:
+  path: '/admin/cofe_ext_bee/events/event/{cofe_ext_bee}/reject'
+  defaults:
+    _entity_form: 'cofe_ext_bee.reject'
+    _title: 'Reject Event'
+  requirements:
+    _permission: 'administer cofe_ext_bee configuration'
+  options:
+    _admin_route: TRUE
+
+entity.cofe.event_settings:
+  path: 'admin/structure/cofe_ext_bee_settings'
+  defaults:
+    _form: '\Drupal\cofe_ext_bee\Form\SettingsForm'
+    _title: 'Event Settings'
+  requirements:
+    _permission: 'administer cofe_ext_bee configuration'
+    

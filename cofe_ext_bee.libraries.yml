@@ -1,0 +1,9 @@
+# Custom module library for general purposes.
+cofe_ext_bee:
+  js:
+    js/cofe-ext-bee.js: {}
+  css:
+    component:
+      css/cofe-ext-bee.css: {}
+  dependencies:
+    - bat_fullcalendar/bat-fullcalendar-scheduler

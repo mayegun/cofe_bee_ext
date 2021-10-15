@@ -1,0 +1,13 @@
+cofe_ext_bee.settings_form:
+  title: Cofe Ext BEE
+  description: Configure Cofe Ext BEE.
+  parent: system.admin_config_system
+  route_name: entity.cofe_ext_bee.canonical
+  weight: 10
+
+entity.cofe_ext_bee_event.collection:
+  title: 'Cofe Bee Events'
+  route_name: entity.cofe_ext_bee.canonical
+  description: 'List CofE BAT events'
+  parent: system.admin_structure
+  weight: 100

@@ -1,0 +1,15 @@
+.fc-unthemed td.fc-today {
+    background: transparent !important;
+}
+
+.fc-row .fc-bg {
+    z-index: 4 !important;
+    background: transparent !important;
+    cursor: pointer;
+}
+
+.fc-row .fc-content-skeleton {
+    position: relative !important;
+    z-index: 1 !important;
+    padding-bottom: 2px !important;
+}

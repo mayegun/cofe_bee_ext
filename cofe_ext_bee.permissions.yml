@@ -1,0 +1,4 @@
+administer cofe_ext_bee configuration:
+  title: 'Administer cofe_ext_bee configuration'
+  description: 'Optional description.'
+  restrict access: true
